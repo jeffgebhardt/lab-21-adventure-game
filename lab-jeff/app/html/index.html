@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="demoApp">
+<html ng-app="adventureApp">
   <head>
     <meta charset="utf-8">
     <title> Adventure Game </title>
@@ -9,18 +9,34 @@
   <body>
     <main ng-controller="GameController as gameCtrl">
       <h1> Can you find all the hobbits before you run out of stamina!? </h1>
-      <form name="gamePadForm" navigate">
-        <label for="direction"> Direction: </label>
-        <select name="direction" ng-model="gamePadForm.direction">
-          <option ng-init="gamePadForm.direction = 'north'" ng-repeat="direction in gameCtrl.directions" value="{{direction}}">
-            {{direction}}
-          </option>
-        </select>
-        <button type="button" ng-click="gameCtrl.moveDirection(gamePadForm.direction)"> Move: </button>
+
+      <form class="form-inline" name="gameForm" ng-submit="gameCtrl.moveDirection(gameForm.direction)" novalidate>
+
+        <div class="form-group">
+          <label for="direction"> Direction: </label>
+          <select name="direction" ng-model="gameForm.direction">
+            <option ng-repeat="direction in gameCtrl.directions" value="{{direction}}">
+              {{direction}}
+            </option>
+          </select>
+        </div>
+
+        <button type="submit" name="button"class="button btn-default"> Move </button>
+
+        <div class="form-group">
+          <label> Hobbits remaining: {{gameCtrl.totalHobbits}} </label>
+        </div>
+
+        <div class="form-group">
+          <label> Stamina remaining: {{gameCtrl.player.stamina}}</label>
+        </div>
+
       </form>
+
       <ol>
-        <li ng-repeat="item in gameCtrl.history"> {{item}} </li>
+        <li ng-repeat="item in gameCtrl.history"> {{item.newEvent}} </li>
       </ol>
+
     </main>
   </body>
 </html>

@@ -36,13 +36,19 @@ module.exports = function(config) {
     preprocessors: {
       'app/entry.js': ['webpack'],
       'test/*-test.js': ['babel'],
+      'app/**/*.js': ['coverage'],
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage'],
+
+    coverageReporter: {
+      type : 'html',
+      dir : 'test/coverage/',
+    },
 
 
     // web server port
