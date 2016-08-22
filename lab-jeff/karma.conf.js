@@ -36,7 +36,6 @@ module.exports = function(config) {
     preprocessors: {
       'app/entry.js': ['webpack'],
       'test/*-test.js': ['babel'],
-      'app/**/*.js': ['coverage'],
     },
 
 
