@@ -19,6 +19,7 @@ module.exports = {
     path: 'build',
     filename: 'bundle.js',
   },
+  devtool: 'inline-source-map',
   plugins: pluginsArray,
   postcss: function(){
     return [autoprefixer];
