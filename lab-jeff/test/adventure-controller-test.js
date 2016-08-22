@@ -27,6 +27,22 @@ describe('game controller testing', function() {
     expect(this.gameCtrl.totalHobbits).not.toBeGreaterThan(10);
   });
 
+  it('should set random # for troll spawn', () => {
+    this.gameCtrl.moveDirection('south');
+    expect(this.gameCtrl.randomTroll).not.toBeLessThan(1);
+    expect(this.gameCtrl.randomTroll).not.toBeGreaterThan(15);
+
+    if (this.gameCtrl.randomTroll === 5) {
+      expect(this.gameCtrl.player.isDead).toBe(true);
+    }
+  });
+
+  it('should set random # for hobbit spawn', () => {
+    this.gameCtrl.moveDirection('south');
+    expect(this.gameCtrl.randomHobbit).not.toBeLessThan(1);
+    expect(this.gameCtrl.randomHobbit).not.toBeGreaterThan(2);
+  });
+
   it('should move in a valid direction', () => {
     this.gameCtrl.moveDirection('south');
     expect(this.gameCtrl.player.location).toBe('rohan');

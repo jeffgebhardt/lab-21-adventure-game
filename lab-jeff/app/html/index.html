@@ -10,7 +10,7 @@
     <main ng-controller="GameController as gameCtrl">
       <h1> Can you find all the hobbits before you run out of stamina!? </h1>
 
-      <form class="form-inline" name="gameForm" ng-submit="gameCtrl.moveDirection(gameForm.direction)" novalidate>
+      <form class="form-inline" name="gameForm" ng-submit="gameCtrl.moveDirection(gameForm.direction)" ng-hide="gameCtrl.player.isDead === true || gameCtrl.player.wonGame === true" novalidate>
 
         <div class="form-group">
           <label for="direction"> Direction: </label>
@@ -33,10 +33,15 @@
 
       </form>
 
-      <ol>
+      <ol ng-hide="gameCtrl.player.isDead === true || gameCtrl.player.wonGame === true">
         <li ng-repeat="item in gameCtrl.history"> {{item.newEvent}} </li>
       </ol>
 
+      <h1 ng-show="gameCtrl.player.isDead === true">You lost, refresh your page to try again!</h1>
+      <h1 ng-show="gameCtrl.player.wonGame === true">You won, refresh your page to play again!</h1>
+
     </main>
+
+
   </body>
 </html>

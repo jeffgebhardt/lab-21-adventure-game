@@ -9,6 +9,8 @@ adventureApp.controller('GameController', ['$log', GameController]);
 function GameController() {
   this.map = require('../lib/map.js');
   this.totalHobbits = events.setTotalHobbits();
+  this.randomTroll = 0;
+  this.randomHobbit = 0;
 
   this.history = [{
     id: 0,
@@ -20,6 +22,8 @@ function GameController() {
     location: 'shire',
     hobbitsFound: 0,
     stamina: 10,
+    isDead: false,
+    wonGame: false,
   };
 
   this.moveDirection = function(direction) {
@@ -30,31 +34,28 @@ function GameController() {
         this.player.location = nextRoom;
         this.player.stamina -= 1;
         if (this.player.stamina === 0) {
+          /* istanbul ignore next */
           alert('You ran out of stamina, ' + this.player.name + ' has feinted...');
-          return this.logHistory({
-            id: this.history.length,
-            newEvent: 'Game over...',
-          });
+          return this.player.isDead = true;
         }
 
-        if (events.randomTroll === 5) {
+        this.randomTroll = events.randomTroll();
+        if (this.randomTroll === 5) {
+          /* istanbul ignore next */
           alert('A troll found you and smashed your brains in!');
           this.player.stamina = 0;
-          return this.logHistory({
-            id: this.history.length,
-            newEvent: 'Game over...',
-          });
+          return this.player.isDead = true;
         }
 
-        if (events.randomHobbit() === 1) {
+        this.randomHobbit = events.randomHobbit();
+        if (this.randomHobbit === 1) {
+          /* istanbul ignore next */
           alert('You found a hobbit, good job!');
           this.totalHobbits -= 1;
           if (this.totalHobbits === 0) {
+            /* istanbul ignore next */
             alert('Great work ' + this.player.name + ', you found all the hobbits!');
-            return this.logHistory({
-              id: this.history.length,
-              newEvent: 'You won!!!',
-            });
+            return this.player.wonGame = true;
           }
         }
 
